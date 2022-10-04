@@ -15,22 +15,18 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 
 
 ###
 # Create your views here.
-
 class ECG_dataViewSet(viewsets.ModelViewSet):
     queryset = ECG_data.objects.all()
     serializer_class = ECG_dataSerializer
-
+    
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
-@method_decorator(csrf_exempt, name='dispatch')
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
