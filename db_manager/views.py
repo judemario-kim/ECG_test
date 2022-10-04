@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 
 class ECG_dataViewSet(viewsets.ModelViewSet):
     queryset = ECG_data.objects.all()
-    queryset2 = User.objects.all()
     serializer_class = ECG_dataSerializer
-    serializer_class2 = UserSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
