@@ -8,3 +8,7 @@ class ECG_data(models.Model):
     def __str__(self):
         return self.ecg
 
+class User_data(models.Model):
+    email = models.EmailField()
+    password = models.CharField(max_length = 16)
+    
