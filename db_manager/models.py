@@ -5,7 +5,7 @@ from django.db import models
 
 class ECG_data(models.Model):
     ecg = models.CharField(max_length = 1024)
-    ecg_user = models.EmailField()
+    ecg_user = models.EmailField(default = "")
 
     def __str__(self):
         return self.ecg
