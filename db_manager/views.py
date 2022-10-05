@@ -21,7 +21,14 @@ from db_manager.serializers import User_dataSerializer
 class ECG_dataViewSet(viewsets.ModelViewSet):
     queryset = ECG_data.objects.all()
     serializer_class = ECG_dataSerializer
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        search = self.request.query_params.get('search','')
+        if search:
+            qs = qs.filter(ecg_user=search)
     
+        return qs
     
 class User_dataViewSet(viewsets.ModelViewSet):
     queryset = User_data.objects.all()
