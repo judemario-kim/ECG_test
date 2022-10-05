@@ -21,7 +21,7 @@ from rest_framework import routers
 from db_manager import views
 
 router = routers.DefaultRouter()
-router.register(r'ECG', views.ECG_dataViewSet)
+router.register(r'ecg', views.ECG_dataViewSet)
 router.register(r'user', views.User_dataViewSet)
 
 urlpatterns = [
