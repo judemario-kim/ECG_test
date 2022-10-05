@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class ECG_data(models.Model):
-    ecg = models.CharField(max_length = 1024)
+    ecg = models.TextField()
     ecg_user = models.EmailField(default = "")
 
     def __str__(self):
