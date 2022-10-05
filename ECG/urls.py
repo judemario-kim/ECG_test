@@ -21,8 +21,8 @@ from rest_framework import routers
 from db_manager import views
 
 router = routers.DefaultRouter()
-router.register(r'tests', views.ECG_dataViewSet)
-router.register(r'user', views.UserViewSet)
+router.register(r'ECG', views.ECG_dataViewSet)
+router.register(r'user', views.User_dataViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
