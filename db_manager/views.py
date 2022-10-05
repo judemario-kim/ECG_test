@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render
 from rest_framework import viewsets
 from db_manager.models import ECG_data
@@ -21,6 +22,15 @@ class ECG_dataViewSet(viewsets.ModelViewSet):
     queryset = ECG_data.objects.all()
     serializer_class = ECG_dataSerializer
     
+    
 class User_dataViewSet(viewsets.ModelViewSet):
     queryset = User_data.objects.all()
     serializer_class = User_dataSerializer
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        search = self.request.query_params.get('search','')
+        if search:
+            qs = qs.filter(email=search)
+    
+        return qs
