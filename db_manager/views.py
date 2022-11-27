@@ -27,21 +27,18 @@ from django.http.response import HttpResponse
 
 # Create your views here.
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def ecg_list(request):
-    user = request.GET.get('user', None)
-    print("Test")
-    if user is not None:
-        datas = ECG_data.objects.filter(ecg_user = user)
-    else:
-        datas = ECG_data.objects.all()
-    serialized_posts= ECG_dataSerializer(datas, many=True)
-    return Response(serialized_posts.data)
-
-@api_view(['POST'])
-def ecg_post(request):
+    
     if request.method == 'GET':
-        return HttpResponse(status=200)
+        user = request.GET.get('user', None)
+        if user is not None:
+            datas = ECG_data.objects.filter(ecg_user = user)
+        else:
+            datas = ECG_data.objects.all()
+        serialized_posts= ECG_dataSerializer(datas, many=True)
+        return Response(serialized_posts.data)
+
     if request.method == 'POST':
         print(request.data)
         serializer = ECG_dataSerializer(data = request.data, many=True)
@@ -50,20 +47,18 @@ def ecg_post(request):
             return Response(serializer.data ,status=200)
         return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def user_list(request):
-    email = request.GET.get('email', None)
-    if email is not None:
-        datas = User_data.objects.filter(email = email)
-    else:
-        datas = User_data.objects.all()
-    serialized_posts= User_dataSerializer(datas, many=True)
-    return Response(serialized_posts.data)
 
-@api_view(['POST'])
-def user_post(request):
     if request.method == 'GET':
-        return HttpResponse(status=200)
+        email = request.GET.get('email', None)
+        if email is not None:
+            datas = User_data.objects.filter(email = email)
+        else:
+            datas = User_data.objects.all()
+        serialized_posts= User_dataSerializer(datas, many=True)
+        return Response(serialized_posts.data)
+
     if request.method == 'POST':
         print(request.data)
         serializer = User_dataSerializer(data = request.data, many=True)
@@ -71,3 +66,9 @@ def user_post(request):
             serializer.save()
             return Response(serializer.data ,status=200)
         return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def user_delete(request, pk):
+    user = User_data.objects.get(pk=pk)
+    user.delete()
+    return Response(status = status.HTTP_204_NO_CONTENT)

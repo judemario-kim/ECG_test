@@ -9,10 +9,9 @@ urlpatterns = [
     #path('', include(router.urls)),
     #path('ecg/', data_list),
     #path('ecg/<int:pk>', data_detail),
-    path('ecg/get/', views.ecg_list),
-    path('ecg/post/', views.ecg_post),
-    path('user/get/', views.user_list),
-    path('user/post/', views.user_post),
+    path('ecg/', views.ecg_list),
+    path('user/', views.user_list),
+    path('user/delete/<int:pk>/', views.user_delete),
     #path('user/', user_list),
     #path('user/<int:pk>/', user_detail),
 ]
