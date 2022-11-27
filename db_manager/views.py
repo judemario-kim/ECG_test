@@ -61,9 +61,9 @@ def ecg_list(request):
 
     if request.method == 'POST':
         print(request.data)
-        copydata = request.data
-        n = copydata.pop('n', None) #위도 경도
-        e = copydata.pop('e', None)
+        copydata = request.data.copy()
+        n = copydata.pop('n', None)[0] #위도 경도
+        e = copydata.pop('e', None)[0]
         data_list = crawling.crawl_weather_data(n, e)
         copydata['weather'] = data_list[0]
         copydata['temperature'] = data_list[1]
