@@ -5,7 +5,12 @@ from django.db import models
 
 class ECG_data(models.Model):
     ecg = models.TextField()
-    additional_data = models.TextField(default="")
+    #additional_data = models.TextField(default="")
+    temperature = models.EmailField(default = "")
+    micro_dust = models.EmailField(default = "")
+    tmicro_dust = models.EmailField(default = "")
+    uv_ray = models.EmailField(default = "")
+    weather = models.EmailField(default = "")
     ecg_user = models.EmailField(default = "")
     created_date = models.DateTimeField(default=None, null=True)
 

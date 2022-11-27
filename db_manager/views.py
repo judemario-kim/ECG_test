@@ -13,6 +13,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http.response import HttpResponse
 
+##
+
+from . import crawling
 
 ###
 #from http.client import HTTPResponse
@@ -41,11 +44,25 @@ def ecg_list(request):
 
     if request.method == 'POST':
         print(request.data)
-        serializer = ECG_dataSerializer(data = request.data, many=True)
+        copydata = request.data
+        n = copydata.pop('n', None) #위도 경도
+        e = copydata.pop('e', None)
+        data_list = crawling.crawl_weather_data(n, e)
+        copydata['weather'] = data_list[0]
+        copydata['temperature'] = data_list[1]
+        copydata['micro_dust'] = data_list[2]
+        copydata['tmicro_dust'] = data_list[3]
+        copydata['uv_ray'] = data_list[4]
+        '''
+        위도 경도 도시받기
+        도시 날씨 정보 받기
+        copydata에 날씨정보 전부 넣기
+        '''
+        serializer = ECG_dataSerializer(data = copydata)
         if(serializer.is_valid()):
             serializer.save()
-            return Response(serializer.data ,status=200)
-        return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def user_list(request):
@@ -61,11 +78,11 @@ def user_list(request):
 
     if request.method == 'POST':
         print(request.data)
-        serializer = User_dataSerializer(data = request.data, many=True)
+        serializer = User_dataSerializer(data = request.data)
         if(serializer.is_valid()):
             serializer.save()
-            return Response(serializer.data ,status=200)
-        return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 def user_delete(request, pk):
