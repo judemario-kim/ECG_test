@@ -35,10 +35,27 @@ def ecg_list(request):
     
     if request.method == 'GET':
         user = request.GET.get('user', None)
+        weather = request.GET.get('weather', None)
+        temperature = request.GET.get('temperature', None) 
+        micro_dust = request.GET.get('micro_dust', None)
+        tmicro_dust = request.GET.get('tmicro_dust', None)
+        uv_ray = request.GET.get('uv_ray', None)
+
+        datas = ECG_data.objects.all()
+        
         if user is not None:
-            datas = ECG_data.objects.filter(ecg_user = user)
-        else:
-            datas = ECG_data.objects.all()
+            datas = datas.filter(ecg_user = user)
+        if weather is not None:
+            datas = datas.filter(weather = weather)      
+        if temperature is not None:
+            datas = datas.filter(temperature = temperature)  
+        if micro_dust is not None:
+            datas = datas.filter(micro_dust = micro_dust)     
+        if tmicro_dust is not None:
+            datas = datas.filter(tmicro_dust = tmicro_dust)       
+        if uv_ray is not None:
+            datas = datas.filter(uv_ray = uv_ray)
+        print(datas)
         serialized_posts= ECG_dataSerializer(datas, many=True)
         return Response(serialized_posts.data)
 
@@ -69,10 +86,9 @@ def user_list(request):
 
     if request.method == 'GET':
         email = request.GET.get('email', None)
+        datas = User_data.objects.all()
         if email is not None:
-            datas = User_data.objects.filter(email = email)
-        else:
-            datas = User_data.objects.all()
+            datas = datas.filter(email = email)
         serialized_posts= User_dataSerializer(datas, many=True)
         return Response(serialized_posts.data)
 

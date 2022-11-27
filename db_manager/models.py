@@ -6,11 +6,11 @@ from django.db import models
 class ECG_data(models.Model):
     ecg = models.TextField()
     #additional_data = models.TextField(default="")
-    temperature = models.EmailField(default = "")
-    micro_dust = models.EmailField(default = "")
-    tmicro_dust = models.EmailField(default = "")
-    uv_ray = models.EmailField(default = "")
-    weather = models.EmailField(default = "")
+    temperature = models.CharField(max_length = 15)
+    micro_dust = models.CharField(max_length = 15)
+    tmicro_dust = models.CharField(max_length = 15)
+    uv_ray = models.CharField(max_length = 15)
+    weather = models.CharField(max_length = 15)
     ecg_user = models.EmailField(default = "")
     created_date = models.DateTimeField(default=None, null=True)
 
