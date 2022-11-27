@@ -5,7 +5,7 @@ from db_manager.models import User_data
 class ECG_dataSerializer(serializers.ModelSerializer):
     class Meta:
         model = ECG_data
-        fields = ('ecg', 'ecg_user', 'created_date', 'id')
+        fields = ('ecg', 'additional_data', 'ecg_user', 'created_date', 'id')
         
 class User_dataSerializer(serializers.ModelSerializer):
     class Meta:

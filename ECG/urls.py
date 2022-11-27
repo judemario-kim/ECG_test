@@ -19,13 +19,12 @@ from django.urls import path, include, re_path
 from rest_framework import routers
 
 from db_manager import views
-
+'''
 router = routers.DefaultRouter()
 router.register(r'ecg', views.ECG_dataViewSet)
 router.register(r'user', views.User_dataViewSet)
-
+'''
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('db_manager/', include('db_manager.urls')),
+    path('', include('db_manager.urls')),
 ]

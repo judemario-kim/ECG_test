@@ -5,6 +5,7 @@ from django.db import models
 
 class ECG_data(models.Model):
     ecg = models.TextField()
+    additional_data = models.TextField(default="")
     ecg_user = models.EmailField(default = "")
     created_date = models.DateTimeField(default=None, null=True)
 
