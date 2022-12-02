@@ -37,4 +37,5 @@ def crawl_weather_data(n, e):
         #stitle = i.find('strong', {'class':'title'}).text
         return_list.append(i.find('span', {'class':'txt'}).text)
     #return_list 0: weather, 1: temp, 2: micro_dust, 3: tmicro_dust, 4: uv_ray
+    return_list[5] = city
     return return_list
