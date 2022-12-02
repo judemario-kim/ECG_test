@@ -40,6 +40,7 @@ def ecg_list(request):
         micro_dust = request.GET.get('micro_dust', None)
         tmicro_dust = request.GET.get('tmicro_dust', None)
         uv_ray = request.GET.get('uv_ray', None)
+        location = request.GET.get('location', None)
 
         datas = ECG_data.objects.all()
         
@@ -55,6 +56,8 @@ def ecg_list(request):
             datas = datas.filter(tmicro_dust = tmicro_dust)       
         if uv_ray is not None:
             datas = datas.filter(uv_ray = uv_ray)
+        if location is not None:
+            datas = datas.filter(location = location)
         print(datas)
         serialized_posts= ECG_dataSerializer(datas, many=True)
         return Response(serialized_posts.data)
@@ -70,6 +73,7 @@ def ecg_list(request):
         copydata['micro_dust'] = data_list[2]
         copydata['tmicro_dust'] = data_list[3]
         copydata['uv_ray'] = data_list[4]
+        copydata['location'] = data_list[5]
         '''
         위도 경도 도시받기
         도시 날씨 정보 받기
