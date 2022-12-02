@@ -30,7 +30,7 @@ def crawl_weather_data(n, e):
     data1 = soup.find('section', {'class': 'sc_new cs_weather_new _cs_weather'})
     weather = data1.find('span', {'class' : 'weather before_slash'}).text
     dust1 = data1.find('ul' , {'class' : 'today_chart_list'})
-    dust2 = dust1.find_all('li', {'class' : 'item_today level2'})
+    dust2 = dust1.find_all('li')
     temp = data1.find('div',{'class' : 'temperature_text'}).find('strong').text.replace("현재 온도","")
     return_list = [weather, temp]
     for i in dust2:
