@@ -13,6 +13,7 @@ class ECG_data(models.Model):
     tmicro_dust = models.CharField(max_length = 15)
     uv_ray = models.CharField(max_length = 15)
     weather = models.CharField(max_length = 15)
+    location = models.CharField(max_length = 15, default = "")
     ecg_user = models.EmailField(default = "")
     created_date = models.DateTimeField(default=timezone.now, null=True)
 
